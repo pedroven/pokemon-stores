@@ -1,17 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useQuery } from 'react-query';
 import {
 	getFirePokemon,
 	getGrassPokemon,
 	getWaterPokemon
 } from '../../services/api';
-// import { Container } from './styles';
+
+import { Container, Content } from './styles';
+
+import Header from '../../components/Header';
+import PokemonList from '../../components/PokemonList';
 interface IProps {
 	type: string;
 }
 
 interface Pokemon {
 	name: string;
+	url: string;
+}
+interface PokemonObj {
+	pokemon: Pokemon;
+}
+
+interface Data {
+	pokemon: PokemonObj[];
 }
 
 interface Map {
@@ -25,9 +37,20 @@ const selectPokemonMap: Map = {
 };
 
 const Store: React.FC<IProps> = ({ type }) => {
-	const { data } = useQuery('pokemonList', selectPokemonMap[type]);
-
-	return <div>{type}</div>;
+	const { data, isLoading, isSuccess } = useQuery<unknown, unknown, Data>(
+		'pokemonList',
+		selectPokemonMap[type]
+	);
+	return (
+		<Container>
+			<Header />
+			<Content>
+				{isLoading && <div style={{ color: 'white' }}>Loading...</div>}
+				{isSuccess &&
+				data && <PokemonList pokemonList={data.pokemon.slice(0, 59)} />}
+			</Content>
+		</Container>
+	);
 };
 
 export default Store;
