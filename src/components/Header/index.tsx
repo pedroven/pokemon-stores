@@ -76,6 +76,7 @@ const Header: React.FC<IProps> = ({ type, searchByName }) => {
           </SearchBarButton>
         </SearchBar>
         <CartButton
+          title="Pokemon Selecionados"
           iconcolortype={type}
           onClick={() => dispatch(changeCartState(!cartState))}
         >

@@ -70,6 +70,13 @@ export const productsReducer = (state = initialState, action: Action) => {
         ...state,
         products: newProducts
       };
+
+    case "CLEAR_PRODUCTS":
+      localStorage.setItem("products", JSON.stringify([]));
+      return {
+        ...state,
+        products: []
+      };
     default:
       return state;
   }

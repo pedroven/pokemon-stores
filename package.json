@@ -21,6 +21,7 @@
 		"react-toastify": "^7.0.3",
 		"redux": "^4.0.5",
 		"styled-components": "^5.2.1",
+		"styled-react-modal": "^2.0.1",
 		"typescript": "3.7.2"
 	},
 	"devDependencies": {
@@ -29,6 +30,7 @@
 		"@types/react": "16.9.11",
 		"@types/react-dom": "16.9.4",
 		"@types/react-redux": "^7.1.16",
+		"@types/styled-react-modal": "^1.2.0",
 		"husky": "^3.0.9",
 		"lint-staged": "^9.4.2",
 		"prettier": "^1.19.1"

@@ -16,6 +16,10 @@ export const removeProduct = (product: Pokemon) => ({
   product
 });
 
+export const clearProducts = () => ({
+  type: "CLEAR_PRODUCTS"
+});
+
 export const changeCartState = (open: boolean) => ({
   type: "CHANGE_CART_STATE",
   cartState: open

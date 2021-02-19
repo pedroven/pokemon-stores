@@ -5,7 +5,7 @@ import {
   getWaterPokemon
 } from "../../services/api";
 import { useSelector, useDispatch } from "react-redux";
-import { removeProduct } from "../../actions";
+import { removeProduct, clearProducts } from "../../actions";
 
 import {
   Container,
@@ -19,6 +19,7 @@ import {
 
 import Header from "../../components/Header";
 import PokemonList from "../../components/PokemonList";
+import Modal from "../../components/Modal";
 interface IProps {
   type: string;
 }
@@ -82,7 +83,10 @@ const Store: React.FC<IProps> = ({ type }) => {
     "initial" | "loading" | "resolved"
   >("initial");
   const products = useSelector((store: Store) => store.productsState.products);
+
   const [totalValue, setTotalValue] = useState<number>(0);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const cartState = useSelector((store: Store) => store.cartState.cartState);
   const dispatch = useDispatch();
 
@@ -117,8 +121,16 @@ const Store: React.FC<IProps> = ({ type }) => {
     }
   };
 
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+    dispatch(clearProducts());
+  };
+
   return (
     <Container>
+      <Modal isOpen={isOpen} toggleModal={toggleModal}>
+        <div>ok</div>
+      </Modal>
       <Header type={type} searchByName={searchByName} />
       <Content>
         {fetchState === "loading" && (
@@ -174,7 +186,7 @@ const Store: React.FC<IProps> = ({ type }) => {
                     ))
                 ) : (
                   <EmptyCart>
-                    Você não possui nenhum pokemon selecionado
+                    Você não possui nenhum Pokemon selecionado
                   </EmptyCart>
                 )}
               </div>
@@ -183,7 +195,7 @@ const Store: React.FC<IProps> = ({ type }) => {
                   <span className="cartTotalPrice">
                     Valor Total: R$ {totalValue},00
                   </span>
-                  <FinishPurchaseButton storeType={type}>
+                  <FinishPurchaseButton storeType={type} onClick={toggleModal}>
                     Finalizar
                   </FinishPurchaseButton>
                 </React.Fragment>
