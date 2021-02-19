@@ -5,6 +5,8 @@ import {
 	getGrassPokemon,
 	getWaterPokemon
 } from '../../services/api';
+import { useSelector, useDispatch } from 'react-redux';
+import { addProduct, removeProduct } from '../../actions';
 
 import { Container, Content } from './styles';
 
@@ -41,13 +43,45 @@ const Store: React.FC<IProps> = ({ type }) => {
 		'pokemonList',
 		selectPokemonMap[type]
 	);
+	const products = useSelector((store: any) => store.productsState.products);
+	const dispatch = useDispatch();
+
 	return (
 		<Container>
-			<Header />
+			<Header type={type} />
 			<Content>
 				{isLoading && <div style={{ color: 'white' }}>Loading...</div>}
 				{isSuccess &&
-				data && <PokemonList pokemonList={data.pokemon.slice(0, 59)} />}
+				data && (
+					<PokemonList
+						type={type}
+						pokemonList={data.pokemon.slice(0, 59)}
+					/>
+				)}
+				<div
+					style={{ width: 500, background: 'orange', marginLeft: 40 }}
+				>
+					<span>carrinho</span>
+					{products &&
+						products.map((product: any) => (
+							<div>
+								{product.name} {product.amount}
+							</div>
+						))}
+					<button
+						onClick={() =>
+							dispatch(
+								addProduct({
+									name: 'bulba2',
+									id: '1',
+									price: 100,
+									amount: 1
+								})
+							)}
+					>
+						add
+					</button>
+				</div>
 			</Content>
 		</Container>
 	);

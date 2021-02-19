@@ -13,6 +13,7 @@ interface PokemonObj {
 
 interface IProps {
 	pokemonList: PokemonObj[];
+	type: string;
 }
 
 function getPokemonIdFromURL(url: string): string {
@@ -20,19 +21,20 @@ function getPokemonIdFromURL(url: string): string {
 	return id;
 }
 
-const PokemonList: React.FC<IProps> = ({ pokemonList }) => {
+const PokemonList: React.FC<IProps> = ({ pokemonList, type }) => {
 	return (
 		<List>
 			{pokemonList.map((p) => (
 				<Card key={p.pokemon.name}>
 					<ImageFrame
 						pokemonId={getPokemonIdFromURL(p.pokemon.url)}
+						type={type}
 					/>
 					<CardInfo>
 						<div>{p.pokemon.name}</div>
 						<div>{p.pokemon.name}</div>
 					</CardInfo>
-					<AddButton />
+					<AddButton buttonType={type} />
 				</Card>
 			))}
 		</List>

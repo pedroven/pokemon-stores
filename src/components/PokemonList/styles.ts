@@ -1,8 +1,29 @@
 import styled from 'styled-components';
 
-interface ImageProps {
+interface IImageProps {
 	pokemonId: string;
+	type: string;
 }
+
+interface IButtonProps {
+	buttonType: string;
+}
+
+interface Map {
+	[key: string]: any;
+}
+
+const buttonTheme: Map = {
+	fire: 'var(--o-red)',
+	water: 'var(--o-blue)',
+	grass: 'var(--o-green)'
+};
+
+const backgroundImageTheme: Map = {
+	fire: 'orange',
+	water: 'var(--b-blue)',
+	grass: 'var(--b-green)'
+};
 
 export const List = styled.ul`
 	list-style: none;
@@ -10,6 +31,7 @@ export const List = styled.ul`
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 40px;
+	margin-top: 20px;
 `;
 
 export const Card = styled.li`
@@ -31,12 +53,13 @@ export const ImageFrame = styled.div`
 	height: 65%;
 	padding: 50px;
 	border-radius: 4px;
-	background-image: ${(props: ImageProps) =>
+	background-image: ${(props: IImageProps) =>
 		pokemonImageURL(props.pokemonId)};
 	background-size: contain;
 	background-position: center;
 	background-repeat: no-repeat;
-	background-color: orange;
+	background-color: ${(props: IImageProps) =>
+		backgroundImageTheme[props.type]};
 `;
 
 const pokemonImageURL = (id: string) => {
@@ -58,6 +81,6 @@ export const AddButton = styled.button`
 	height: 50px;
 	border: none;
 	border-radius: 4px;
-	background-color: var(--o-red);
+	background-color: ${(props: IButtonProps) => buttonTheme[props.buttonType]};
 	cursor: pointer;
 `;

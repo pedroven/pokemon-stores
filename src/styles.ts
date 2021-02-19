@@ -6,6 +6,12 @@ export default createGlobalStyle`
     --d-gray: #282828;
     --d-orange: #fc6d14;
     --o-red: #f94f00;
+    --o-blue: #2D5680;
+    --b-blue: #4489c9;
+    --o-green: #215A02;
+    --b-green: #6a9e4a;
+    --header-green: #2a6d03;
+    --header-blue: #306499;
     --l-gray: #333333;
   }
 
