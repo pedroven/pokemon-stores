@@ -26,7 +26,7 @@ interface ILogoProps {
 }
 
 interface IIconProps {
-  iconColorType: string;
+  iconcolortype: string;
 }
 
 export const Container = styled.header`
@@ -51,7 +51,6 @@ export const Logo = styled.div`
   height: 60px;
   display: flex;
   flex-direction: column;
-  /* background-color: purple; */
   padding: 0;
   div {
     width: 100%;
@@ -93,7 +92,7 @@ export const SearchBarButton = styled.button`
 `;
 
 export const SearchBarButtonIcon = styled(AiOutlineSearch)`
-  color: ${(props: IIconProps) => headerTheme[props.iconColorType]};
+  color: ${(props: IIconProps) => headerTheme[props.iconcolortype]};
   font-size: 22px;
 `;
 
@@ -109,7 +108,7 @@ export const CartButton = styled.button`
   border-radius: 50%;
   :hover {
     background-color: ${(props: IIconProps) =>
-      hoverThemes[props.iconColorType]};
+      hoverThemes[props.iconcolortype]};
   }
   span {
     position: absolute;

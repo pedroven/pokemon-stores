@@ -16,7 +16,7 @@ export const Content = styled.main`
   padding-top: 80px;
 `;
 
-export const CartSession = styled.section`
+export const CartAside = styled.aside`
   width: 350px;
   background: orange;
   margin-left: 40px;

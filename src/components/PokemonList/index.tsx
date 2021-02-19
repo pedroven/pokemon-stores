@@ -2,7 +2,14 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../actions";
 
-import { List, Card, ImageFrame, CardInfo, AddButton } from "./styles";
+import {
+  List,
+  Card,
+  ImageFrame,
+  CardInfo,
+  AddButton,
+  AddButtonIcon
+} from "./styles";
 
 interface Pokemon {
   name: string;
@@ -23,6 +30,21 @@ function getPokemonIdFromURL(url: string): string {
   return id;
 }
 
+function parseName(name: string): string {
+  if (name.includes("-")) {
+    let splitedName = name.split("-");
+    splitedName = splitedName.map(
+      word => word.charAt(0).toUpperCase() + word.slice(1)
+    );
+    let newName = splitedName.join(" ");
+    return newName;
+  } else {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
+}
+
+var price: number;
+
 const PokemonList: React.FC<IProps> = ({ pokemonList, type }) => {
   const dispatch = useDispatch();
   return (
@@ -33,9 +55,14 @@ const PokemonList: React.FC<IProps> = ({ pokemonList, type }) => {
             pokemonId={getPokemonIdFromURL(p.pokemon.url)}
             type={type}
           />
+          {
+            <div style={{ display: "none" }}>
+              {(price = Math.random() * 500)}
+            </div>
+          }
           <CardInfo>
-            <div>{p.pokemon.name}</div>
-            <div>{p.pokemon.name}</div>
+            <div>{parseName(p.pokemon.name)}</div>
+            <div>R$ {price.toFixed(2).replace(".", ",")}</div>
           </CardInfo>
           <AddButton
             onClick={() =>
@@ -43,13 +70,17 @@ const PokemonList: React.FC<IProps> = ({ pokemonList, type }) => {
                 addProduct({
                   ...p.pokemon,
                   id: getPokemonIdFromURL(p.pokemon.url),
-                  price: 100,
-                  amount: 1
+                  price: price,
+                  amount: 1,
+                  storeType: type
                 })
               )
             }
             buttonType={type}
-          />
+          >
+            Adicionar
+            <AddButtonIcon />
+          </AddButton>
         </Card>
       ))}
     </List>

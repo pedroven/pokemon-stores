@@ -7,7 +7,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { removeProduct } from "../../actions";
 
-import { Container, Content, CartSession } from "./styles";
+import { Container, Content, CartAside } from "./styles";
 
 import Header from "../../components/Header";
 import PokemonList from "../../components/PokemonList";
@@ -16,14 +16,23 @@ interface IProps {
 }
 
 interface Pokemon {
+  id: string;
   name: string;
   url: string;
+  price?: number;
+  amount?: number;
+  storeType?: string;
 }
 interface PokemonObj {
   pokemon: Pokemon;
 }
 interface Map {
-  [key: string]: () => Promise<void> | undefined;
+  [key: string]: () => Promise<PokemonObj[]>;
+}
+
+interface Store {
+  productsState: { products: Pokemon[] };
+  cartState: { cartState: boolean };
 }
 
 const selectPokemonMap: Map = {
@@ -40,14 +49,14 @@ const Store: React.FC<IProps> = ({ type }) => {
   const [fetchState, setFetchState] = useState<
     "initial" | "loading" | "resolved"
   >("initial");
-  const products = useSelector((store: any) => store.productsState.products);
-  const cartState = useSelector((store: any) => store.cartState.cartState);
+  const products = useSelector((store: Store) => store.productsState.products);
+  const cartState = useSelector((store: Store) => store.cartState.cartState);
   const dispatch = useDispatch();
 
   useEffect(() => {
     setFetchState("loading");
     const getPokemonList = async () => {
-      const { pokemon }: any = await selectPokemonMap[type]();
+      const pokemon: PokemonObj[] = await selectPokemonMap[type]();
       setPokemonList(pokemon.slice(0, 59));
       setInitialPokemonList(pokemon.slice(0, 59));
       setFetchState("resolved");
@@ -74,29 +83,32 @@ const Store: React.FC<IProps> = ({ type }) => {
           <PokemonList type={type} pokemonList={pokemonList} />
         )}
         {cartState && (
-          <CartSession>
+          <CartAside>
             <div className="cartContainer">
               <span>carrinho</span>
               {products &&
-                products.map((product: any) => (
-                  <div>
-                    {product.name} {product.amount}{" "}
-                    <button
-                      onClick={() =>
-                        dispatch(
-                          removeProduct({
-                            ...product,
-                            price: 100
-                          })
-                        )
-                      }
-                    >
-                      remover
-                    </button>
-                  </div>
-                ))}
+                products
+                  .filter((product: Pokemon) => product.storeType === type)
+                  .map((product: Pokemon) => (
+                    <div key={product.id}>
+                      {product.name} {product.amount}{" "}
+                      <button
+                        onClick={() =>
+                          dispatch(
+                            removeProduct({
+                              ...product,
+                              price: 100,
+                              storeType: type
+                            })
+                          )
+                        }
+                      >
+                        remover
+                      </button>
+                    </div>
+                  ))}
             </div>
-          </CartSession>
+          </CartAside>
         )}
       </Content>
     </Container>

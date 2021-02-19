@@ -1,22 +1,22 @@
-import axios from 'axios';
+import axios from "axios";
 
-require('dotenv').config();
+require("dotenv").config();
 
 const api = axios.create({
-	baseURL: `${process.env.REACT_APP_API_URL}`
+  baseURL: `${process.env.REACT_APP_API_URL}`
 });
 
 export const getFirePokemon = async () => {
-	const { data } = await api.get('type/fire/');
-	return data;
+  const { data } = await api.get("type/fire/");
+  return data.pokemon;
 };
 
 export const getWaterPokemon = async () => {
-	const { data } = await api.get('type/water/');
-	return data;
+  const { data } = await api.get("type/water/");
+  return data.pokemon;
 };
 
 export const getGrassPokemon = async () => {
-	const { data } = await api.get('type/grass/');
-	return data;
+  const { data } = await api.get("type/grass/");
+  return data.pokemon;
 };

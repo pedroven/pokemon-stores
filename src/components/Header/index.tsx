@@ -26,9 +26,26 @@ interface Inputs {
   searchedName: string;
 }
 
+interface Pokemon {
+  id: string;
+  name: string;
+  url: string;
+  price?: number;
+  amount?: number;
+  storeType?: string;
+}
+
+interface Store {
+  productsState: { products: Pokemon[] };
+  cartState: { cartState: boolean };
+}
+
 const Header: React.FC<IProps> = ({ type, searchByName }) => {
-  const cartState = useSelector((store: any) => store.cartState.cartState);
-  const products = useSelector((store: any) => store.productsState.products);
+  const cartState = useSelector((store: Store) => store.cartState.cartState);
+  const products = useSelector((store: Store) => store.productsState.products);
+  const productsLength = products.filter(
+    (product: Pokemon) => product.storeType === type
+  ).length;
   const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm<Inputs>();
 
@@ -55,14 +72,14 @@ const Header: React.FC<IProps> = ({ type, searchByName }) => {
             ref={register}
           />
           <SearchBarButton type="submit">
-            <SearchBarButtonIcon iconColorType={type} />
+            <SearchBarButtonIcon iconcolortype={type} />
           </SearchBarButton>
         </SearchBar>
         <CartButton
-          iconColorType={type}
+          iconcolortype={type}
           onClick={() => dispatch(changeCartState(!cartState))}
         >
-          <CartIcon /> {products.length > 0 && <span>{products.length}</span>}
+          <CartIcon /> {productsLength > 0 && <span>{productsLength}</span>}
         </CartButton>
       </div>
     </Container>

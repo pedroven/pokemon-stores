@@ -3,6 +3,7 @@ interface Pokemon {
   id: string;
   price: number;
   amount?: number | 0;
+  storeType: string;
 }
 
 export const addProduct = (product: Pokemon) => ({
