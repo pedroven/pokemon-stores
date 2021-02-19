@@ -1,6 +1,8 @@
-import { productsReducer } from './productReducer';
-import { combineReducers } from 'redux';
+import { productsReducer } from "./productReducer";
+import { cartStateReducer } from "./cartStateReducer";
+import { combineReducers } from "redux";
 
 export const Reducers = combineReducers({
-	productsState: productsReducer
+  productsState: productsReducer,
+  cartState: cartStateReducer
 });

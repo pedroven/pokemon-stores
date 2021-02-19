@@ -1,90 +1,106 @@
-import React from 'react';
-import { useQuery } from 'react-query';
+import React, { useState, useEffect } from "react";
 import {
-	getFirePokemon,
-	getGrassPokemon,
-	getWaterPokemon
-} from '../../services/api';
-import { useSelector, useDispatch } from 'react-redux';
-import { addProduct, removeProduct } from '../../actions';
+  getFirePokemon,
+  getGrassPokemon,
+  getWaterPokemon
+} from "../../services/api";
+import { useSelector, useDispatch } from "react-redux";
+import { removeProduct } from "../../actions";
 
-import { Container, Content } from './styles';
+import { Container, Content, CartSession } from "./styles";
 
-import Header from '../../components/Header';
-import PokemonList from '../../components/PokemonList';
+import Header from "../../components/Header";
+import PokemonList from "../../components/PokemonList";
 interface IProps {
-	type: string;
+  type: string;
 }
 
 interface Pokemon {
-	name: string;
-	url: string;
+  name: string;
+  url: string;
 }
 interface PokemonObj {
-	pokemon: Pokemon;
+  pokemon: Pokemon;
 }
-
-interface Data {
-	pokemon: PokemonObj[];
-}
-
 interface Map {
-	[key: string]: () => Promise<void> | undefined;
+  [key: string]: () => Promise<void> | undefined;
 }
 
 const selectPokemonMap: Map = {
-	fire: getFirePokemon,
-	water: getWaterPokemon,
-	grass: getGrassPokemon
+  fire: getFirePokemon,
+  water: getWaterPokemon,
+  grass: getGrassPokemon
 };
 
 const Store: React.FC<IProps> = ({ type }) => {
-	const { data, isLoading, isSuccess } = useQuery<unknown, unknown, Data>(
-		'pokemonList',
-		selectPokemonMap[type]
-	);
-	const products = useSelector((store: any) => store.productsState.products);
-	const dispatch = useDispatch();
+  const [pokemonList, setPokemonList] = useState<PokemonObj[] | []>([]);
+  const [initialPokemonList, setInitialPokemonList] = useState<
+    PokemonObj[] | []
+  >([]);
+  const [fetchState, setFetchState] = useState<
+    "initial" | "loading" | "resolved"
+  >("initial");
+  const products = useSelector((store: any) => store.productsState.products);
+  const cartState = useSelector((store: any) => store.cartState.cartState);
+  const dispatch = useDispatch();
 
-	return (
-		<Container>
-			<Header type={type} />
-			<Content>
-				{isLoading && <div style={{ color: 'white' }}>Loading...</div>}
-				{isSuccess &&
-				data && (
-					<PokemonList
-						type={type}
-						pokemonList={data.pokemon.slice(0, 59)}
-					/>
-				)}
-				<div
-					style={{ width: 500, background: 'orange', marginLeft: 40 }}
-				>
-					<span>carrinho</span>
-					{products &&
-						products.map((product: any) => (
-							<div>
-								{product.name} {product.amount}
-							</div>
-						))}
-					<button
-						onClick={() =>
-							dispatch(
-								addProduct({
-									name: 'bulba2',
-									id: '1',
-									price: 100,
-									amount: 1
-								})
-							)}
-					>
-						add
-					</button>
-				</div>
-			</Content>
-		</Container>
-	);
+  useEffect(() => {
+    setFetchState("loading");
+    const getPokemonList = async () => {
+      const { pokemon }: any = await selectPokemonMap[type]();
+      setPokemonList(pokemon.slice(0, 59));
+      setInitialPokemonList(pokemon.slice(0, 59));
+      setFetchState("resolved");
+    };
+    getPokemonList();
+  }, [type]);
+
+  const searchByName = (name: string) => {
+    if (name) {
+      setPokemonList(pokemonList.filter(p => p.pokemon.name.includes(name)));
+    } else {
+      setPokemonList(initialPokemonList);
+    }
+  };
+
+  return (
+    <Container>
+      <Header type={type} searchByName={searchByName} />
+      <Content>
+        {fetchState === "loading" && (
+          <div style={{ color: "white" }}>Loading...</div>
+        )}
+        {fetchState === "resolved" && pokemonList.length > 0 && (
+          <PokemonList type={type} pokemonList={pokemonList} />
+        )}
+        {cartState && (
+          <CartSession>
+            <div className="cartContainer">
+              <span>carrinho</span>
+              {products &&
+                products.map((product: any) => (
+                  <div>
+                    {product.name} {product.amount}{" "}
+                    <button
+                      onClick={() =>
+                        dispatch(
+                          removeProduct({
+                            ...product,
+                            price: 100
+                          })
+                        )
+                      }
+                    >
+                      remover
+                    </button>
+                  </div>
+                ))}
+            </div>
+          </CartSession>
+        )}
+      </Content>
+    </Container>
+  );
 };
 
 export default Store;

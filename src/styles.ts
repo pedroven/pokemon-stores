@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   :root {
@@ -26,6 +26,7 @@ export default createGlobalStyle`
       font-size: 14px;
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased !important;
+      background-color: var(--background);
       .error {
         box-shadow: 0 -1px 4px var(--error), 0 2px 4px var(--error);
       }
