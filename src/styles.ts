@@ -5,13 +5,16 @@ export default createGlobalStyle`
     --background: #121212;
     --d-gray: #282828;
     --d-orange: #fc6d14;
+    --hover-orange: #fc8f4b;
     --o-red: #f94f00;
     --o-blue: #2D5680;
     --b-blue: #4489c9;
     --o-green: #215A02;
     --b-green: #6a9e4a;
     --header-green: #2a6d03;
+    --hover-green: #4e842d;
     --header-blue: #306499;
+    --hover-blue: #517aa3;
     --l-gray: #333333;
   }
 

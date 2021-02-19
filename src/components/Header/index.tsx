@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { changeCartState } from "../../actions";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 import {
   Container,
@@ -9,8 +10,12 @@ import {
   CartButton,
   SearchBar,
   SearchInput,
-  SearchBarButton
+  SearchBarButton,
+  SearchBarButtonIcon,
+  CartIcon
 } from "./styles";
+
+import pokemonLogo from "../../assets/pokemon-logo.png";
 
 interface IProps {
   type: string;
@@ -35,19 +40,31 @@ const Header: React.FC<IProps> = ({ type, searchByName }) => {
 
   return (
     <Container type={type}>
-      <Logo />
-      <SearchBar onSubmit={handleSubmit(onSubmit)}>
-        <SearchInput
-          name="searchedName"
-          defaultValue=""
-          placeholder="Pesquisar..."
-          ref={register}
-        />
-        <SearchBarButton type="submit" value="Buscar" />
-      </SearchBar>
-      <button onClick={() => dispatch(changeCartState(!cartState))}>
-        carrinho {products.length > 0 && products.length}
-      </button>
+      <div className="wrapper">
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <Logo logoUrl={pokemonLogo}>
+            <div />
+            <span>STORE</span>
+          </Logo>
+        </Link>
+        <SearchBar onSubmit={handleSubmit(onSubmit)}>
+          <SearchInput
+            name="searchedName"
+            defaultValue=""
+            placeholder="Pesquisar..."
+            ref={register}
+          />
+          <SearchBarButton type="submit">
+            <SearchBarButtonIcon iconColorType={type} />
+          </SearchBarButton>
+        </SearchBar>
+        <CartButton
+          iconColorType={type}
+          onClick={() => dispatch(changeCartState(!cartState))}
+        >
+          <CartIcon /> {products.length > 0 && <span>{products.length}</span>}
+        </CartButton>
+      </div>
     </Container>
   );
 };
