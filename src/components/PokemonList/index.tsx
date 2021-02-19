@@ -12,8 +12,10 @@ import {
 } from "./styles";
 
 interface Pokemon {
+  id: string;
   name: string;
   url: string;
+  price: number;
 }
 
 interface PokemonObj {
@@ -25,52 +27,24 @@ interface IProps {
   type: string;
 }
 
-function getPokemonIdFromURL(url: string): string {
-  let id = url.split("/")[6];
-  return id;
-}
-
-function parseName(name: string): string {
-  if (name.includes("-")) {
-    let splitedName = name.split("-");
-    splitedName = splitedName.map(
-      word => word.charAt(0).toUpperCase() + word.slice(1)
-    );
-    let newName = splitedName.join(" ");
-    return newName;
-  } else {
-    return name.charAt(0).toUpperCase() + name.slice(1);
-  }
-}
-
-var price: number;
-
 const PokemonList: React.FC<IProps> = ({ pokemonList, type }) => {
   const dispatch = useDispatch();
   return (
     <List>
       {pokemonList.map(p => (
         <Card key={p.pokemon.name}>
-          <ImageFrame
-            pokemonId={getPokemonIdFromURL(p.pokemon.url)}
-            type={type}
-          />
-          {
-            <div style={{ display: "none" }}>
-              {(price = Math.random() * 500)}
-            </div>
-          }
+          <ImageFrame pokemonId={p.pokemon.id} type={type} />
           <CardInfo>
-            <div>{parseName(p.pokemon.name)}</div>
-            <div>R$ {price.toFixed(2).replace(".", ",")}</div>
+            <div>{p.pokemon.name}</div>
+            <div>R$ {p.pokemon.price},00</div>
           </CardInfo>
           <AddButton
             onClick={() =>
               dispatch(
                 addProduct({
                   ...p.pokemon,
-                  id: getPokemonIdFromURL(p.pokemon.url),
-                  price: price,
+                  id: p.pokemon.id,
+                  price: p.pokemon.price,
                   amount: 1,
                   storeType: type
                 })
