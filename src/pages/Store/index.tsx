@@ -5,7 +5,8 @@ import {
   getWaterPokemon
 } from "../../services/api";
 import { useSelector, useDispatch } from "react-redux";
-import { removeProduct, clearProducts } from "../../actions";
+import { removeProduct, clearProducts, changeCartState } from "../../actions";
+import { AiOutlineClose } from "react-icons/ai";
 
 import {
   Container,
@@ -85,6 +86,7 @@ const Store: React.FC<IProps> = ({ type }) => {
   const products = useSelector((store: Store) => store.productsState.products);
 
   const [totalValue, setTotalValue] = useState<number>(0);
+  const [lastTotalValue, setLastTotalValue] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const cartState = useSelector((store: Store) => store.cartState.cartState);
@@ -122,14 +124,26 @@ const Store: React.FC<IProps> = ({ type }) => {
   };
 
   const toggleModal = () => {
-    setIsOpen(!isOpen);
-    dispatch(clearProducts());
+    if (totalValue > 0) {
+      setLastTotalValue(totalValue);
+      setIsOpen(!isOpen);
+      dispatch(clearProducts());
+      dispatch(changeCartState(false));
+    } else {
+      setIsOpen(!isOpen);
+    }
   };
 
   return (
     <Container>
       <Modal isOpen={isOpen} toggleModal={toggleModal}>
-        <div>ok</div>
+        <div className="modalContent">
+          <div>Obrigado por finalizar sua compra!</div>
+          <div>Valor total: R$ {lastTotalValue},00 :)</div>
+          <span className="buttonCloseModal" onClick={toggleModal}>
+            <AiOutlineClose style={{ color: "#fff" }} />
+          </span>
+        </div>
       </Modal>
       <Header type={type} searchByName={searchByName} />
       <Content>
