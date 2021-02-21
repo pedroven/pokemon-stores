@@ -47,6 +47,7 @@ export const Card = styled.li`
   :hover {
     background-color: var(--l-gray);
   }
+  cursor: pointer;
 `;
 
 export const ImageFrame = styled.div`
@@ -82,12 +83,16 @@ export const AddButton = styled.button`
   border: none;
   border-radius: 4px;
   background-color: ${(props: IButtonProps) => buttonTheme[props.buttonType]};
-  cursor: pointer;
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 18px;
+  :hover {
+    height: 58px;
+    width: 92%;
+    transition: all 0.4s;
+  }
 `;
 
 export const AddButtonIcon = styled(AiOutlinePlus)`

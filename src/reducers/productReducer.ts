@@ -2,7 +2,7 @@ interface Pokemon {
   name: string;
   id: string;
   price: number;
-  amount: number | 0;
+  amount: number;
 }
 
 interface Action {

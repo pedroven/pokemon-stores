@@ -55,13 +55,15 @@ export const CartAside = styled.aside`
       text-align: center;
       font-weight: bold;
       font-size: 16px;
+      display: flex;
+      justify-content: space-around;
     }
     .cartContainerWrapper {
       height: 100%;
       height: 498px;
       overflow-y: auto;
       ::-webkit-scrollbar {
-        width: 10px;
+        width: 12px;
       }
       ::-webkit-scrollbar-track {
         background: var(--d-gray);
@@ -69,13 +71,13 @@ export const CartAside = styled.aside`
       ::-webkit-scrollbar-thumb {
         background: gray;
         border-radius: 10px;
-        width: 2px;
+        border-left: 5px solid var(--d-gray);
       }
     }
     .cartTitle {
       padding: 20px;
       color: #fff;
-      font-size: 18px;
+      font-size: 17px;
       display: flex;
       justify-content: center;
       align-items: center;

@@ -20,3 +20,8 @@ export const getGrassPokemon = async () => {
   const { data } = await api.get("type/grass/");
   return data.pokemon;
 };
+
+export const getPokemonInfo = async (id: string) => {
+  const { data } = await api.get(`pokemon/${id}`);
+  return data;
+};

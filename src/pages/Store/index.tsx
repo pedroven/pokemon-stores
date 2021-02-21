@@ -21,6 +21,8 @@ import {
 import Header from "../../components/Header";
 import PokemonList from "../../components/PokemonList";
 import Modal from "../../components/Modal";
+
+import { prices } from "../../utils/prices";
 interface IProps {
   type: string;
 }
@@ -75,6 +77,12 @@ function getTotalValue(products: Pokemon[], type: string): number {
     .reduce((a, b) => a + b.price * b.amount, 0);
 }
 
+function getTotalAmount(products: Pokemon[], type: string): number {
+  return products
+    .filter((product: Pokemon) => product.storeType === type)
+    .reduce((a, b) => a + b.amount, 0);
+}
+
 const Store: React.FC<IProps> = ({ type }) => {
   const [pokemonList, setPokemonList] = useState<PokemonObj[] | []>([]);
   const [initialPokemonList, setInitialPokemonList] = useState<
@@ -86,6 +94,7 @@ const Store: React.FC<IProps> = ({ type }) => {
   const products = useSelector((store: Store) => store.productsState.products);
 
   const [totalValue, setTotalValue] = useState<number>(0);
+  const [totalAmount, setTotalAmount] = useState<number>(0);
   const [lastTotalValue, setLastTotalValue] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -96,10 +105,12 @@ const Store: React.FC<IProps> = ({ type }) => {
     setFetchState("loading");
     const getPokemonList = async () => {
       let pokemon: PokemonObj[] = await selectPokemonMap[type]();
+      let counter = 0;
       pokemon = pokemon.map(p => {
-        p.pokemon.price = Math.floor(Math.random() * 500);
+        p.pokemon.price = prices[counter];
         p.pokemon.name = parseName(p.pokemon.name);
         p.pokemon.id = getPokemonIdFromURL(p.pokemon.url);
+        counter++;
         return p;
       });
       setPokemonList(pokemon.slice(0, 59));
@@ -111,6 +122,7 @@ const Store: React.FC<IProps> = ({ type }) => {
 
   useEffect(() => {
     setTotalValue(getTotalValue(products, type));
+    setTotalAmount(getTotalAmount(products, type));
   }, [products, type]);
 
   const searchByName = (name: string) => {
@@ -156,7 +168,7 @@ const Store: React.FC<IProps> = ({ type }) => {
         {cartState && (
           <CartAside>
             <div className="cartContainer">
-              <span className="cartTitle">Pokemon Selecionados</span>
+              <span className="cartTitle">Pokemon adicionados</span>
               <div className="cartContainerWrapper">
                 {products &&
                 products.filter(
@@ -172,10 +184,7 @@ const Store: React.FC<IProps> = ({ type }) => {
                             <div>{product.name}</div>
                           </span>
                           <span className="productPrice">
-                            R${" "}
-                            {product.amount &&
-                              product.price &&
-                              product.price * product.amount}
+                            R$ {product.price * product.amount}
                             ,00
                           </span>
                         </div>
@@ -200,14 +209,15 @@ const Store: React.FC<IProps> = ({ type }) => {
                     ))
                 ) : (
                   <EmptyCart>
-                    Você não possui nenhum Pokemon selecionado
+                    Você não possui nenhum Pokemon adicionado
                   </EmptyCart>
                 )}
               </div>
               {totalValue > 0 && (
                 <React.Fragment>
                   <span className="cartTotalPrice">
-                    Valor Total: R$ {totalValue},00
+                    <span>Items: {totalAmount}</span>
+                    <span>Total: R$ {totalValue},00</span>
                   </span>
                   <FinishPurchaseButton storeType={type} onClick={toggleModal}>
                     Finalizar

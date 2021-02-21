@@ -1,5 +1,6 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 import { addProduct } from "../../actions";
 
 import {
@@ -29,10 +30,22 @@ interface IProps {
 
 const PokemonList: React.FC<IProps> = ({ pokemonList, type }) => {
   const dispatch = useDispatch();
+  const { push } = useHistory();
+
+  const goToInfoPage = (event: MouseEvent, id: string) => {
+    const target = event.target as HTMLElement;
+    if (target.tagName !== "BUTTON" && target.tagName !== "svg") {
+      push(`/pokemon/${id}`);
+    }
+  };
+
   return (
     <List>
       {pokemonList.map(p => (
-        <Card key={p.pokemon.name}>
+        <Card
+          key={p.pokemon.name}
+          onClick={(event: MouseEvent) => goToInfoPage(event, p.pokemon.id)}
+        >
           <ImageFrame pokemonId={p.pokemon.id} type={type} />
           <CardInfo>
             <div>{p.pokemon.name}</div>

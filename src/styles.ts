@@ -25,7 +25,7 @@ export default createGlobalStyle`
       box-sizing: border-box;
   }
   body {
-      font-family: sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 14px;
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased !important;
