@@ -25,7 +25,7 @@ export default function Routes() {
           exact
           component={() => <Store type="grass" />}
         />
-        <Route path="/pokemon/:id" exact component={PokemonInfo} />
+        <Route path="/pokemon/:type/:id" exact component={PokemonInfo} />
         <Route
           path="/*"
           exact

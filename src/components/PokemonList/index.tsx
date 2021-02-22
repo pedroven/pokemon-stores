@@ -28,14 +28,20 @@ interface IProps {
   type: string;
 }
 
+const stores: { [key: string]: any } = {
+  fire: "fogo",
+  water: "agua",
+  grass: "grama"
+};
+
 const PokemonList: React.FC<IProps> = ({ pokemonList, type }) => {
   const dispatch = useDispatch();
   const { push } = useHistory();
 
-  const goToInfoPage = (event: MouseEvent, id: string) => {
+  const goToInfoPage = (event: MouseEvent, id: string, pokemon: Pokemon) => {
     const target = event.target as HTMLElement;
     if (target.tagName !== "BUTTON" && target.tagName !== "svg") {
-      push(`/pokemon/${id}`);
+      push(`/pokemon/${stores[type]}/${id}`, { ...pokemon, type: type });
     }
   };
 
@@ -44,7 +50,9 @@ const PokemonList: React.FC<IProps> = ({ pokemonList, type }) => {
       {pokemonList.map(p => (
         <Card
           key={p.pokemon.name}
-          onClick={(event: MouseEvent) => goToInfoPage(event, p.pokemon.id)}
+          onClick={(event: MouseEvent) =>
+            goToInfoPage(event, p.pokemon.id, p.pokemon)
+          }
         >
           <ImageFrame pokemonId={p.pokemon.id} type={type} />
           <CardInfo>

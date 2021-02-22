@@ -20,7 +20,7 @@ export const clearProducts = () => ({
   type: "CLEAR_PRODUCTS"
 });
 
-export const changeCartState = (open: boolean) => ({
-  type: "CHANGE_CART_STATE",
-  cartState: open
+export const changesearchedName = (name: string) => ({
+  type: "CHANGE_SEARCHED_NAME",
+  searchedNameState: name
 });
