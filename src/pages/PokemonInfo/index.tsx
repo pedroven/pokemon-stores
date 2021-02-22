@@ -97,7 +97,7 @@ const PokemonInfo: React.FC = () => {
             <PokemonInfoContainer>
               <h1>{parseName(pokemonInfo.name)}</h1>
               <p>
-                {parseName(pokemonInfo.name)} é um pokemon do tipo fogo com
+                {parseName(pokemonInfo.name)} é um pokemon do tipo {type} com
                 altura de {pokemonInfo.height * 10} centímetros e peso de{" "}
                 {pokemonInfo.weight / 10} kg.
               </p>

@@ -5,7 +5,7 @@ import {
   getWaterPokemon
 } from "../../services/api";
 import { useSelector, useDispatch } from "react-redux";
-import { clearProducts } from "../../actions";
+import { changesearchedName } from "../../actions";
 
 import { Container, Content } from "./styles";
 
@@ -71,6 +71,8 @@ const Store: React.FC<IProps> = ({ type }) => {
     "initial" | "loading" | "resolved"
   >("initial");
 
+  const dispatch = useDispatch();
+
   const searchedName = useSelector(
     (store: Store) => store.searchedNameState.searchedNameState
   );
@@ -96,16 +98,15 @@ const Store: React.FC<IProps> = ({ type }) => {
   }, [type]);
 
   useEffect(() => {
-    console.log("ok");
-    searchByName(searchedName);
-  }, [searchedName]);
+    fetchState === "resolved" && searchByName(searchedName);
+  }, [searchedName, fetchState]);
 
   const searchByName = (name: string) => {
     if (name) {
-      console.log("testando");
-      console.log(pokemonList);
       setPokemonList(
-        pokemonList.filter(p => p.pokemon.name.toLowerCase().includes(name))
+        initialPokemonList.filter(p =>
+          p.pokemon.name.toLowerCase().includes(name)
+        )
       );
     } else {
       setPokemonList(initialPokemonList);
