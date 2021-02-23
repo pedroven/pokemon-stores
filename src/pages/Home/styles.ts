@@ -28,7 +28,7 @@ export const Content = styled.main`
   @media (max-width: 599px) {
     width: 300px;
     span {
-      font-size: 15px;
+      font-size: 13px;
       text-align: center;
       padding: 20px;
     }
@@ -58,8 +58,12 @@ export const Logo = styled.div`
     text-align: center;
   }
   @media (max-width: 599px) {
+    width: 70%;
+    justify-content: center;
+    align-items: center;
     span {
       font-size: 16px;
+      padding: 0;
     }
   }
 `;

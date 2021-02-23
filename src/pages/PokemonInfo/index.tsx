@@ -107,7 +107,7 @@ const PokemonInfo: React.FC = () => {
                 <ul>
                   {pokemonInfo.abilities.map(ability => (
                     <li key={ability.ability.name}>
-                      <span>{ability.ability.name}</span>
+                      <span>{parseName(ability.ability.name)}</span>
                     </li>
                   ))}
                 </ul>
@@ -117,7 +117,7 @@ const PokemonInfo: React.FC = () => {
                 <ul>
                   {pokemonInfo.moves.map(move => (
                     <li key={move.move.name}>
-                      <span>{move.move.name}</span>
+                      <span>{parseName(move.move.name)}</span>
                     </li>
                   ))}
                 </ul>

@@ -2,6 +2,12 @@ import Modal from "styled-react-modal";
 
 export const StyledModal = Modal.styled`
 	width: 450px;
+	@media (max-width: 480px) {
+		width: 300px;
+		justify-content: center;
+		padding: 20px;
+		text-align: center;
+	}
 	height: 250px;
 	display: flex;
 	align-items: center;
