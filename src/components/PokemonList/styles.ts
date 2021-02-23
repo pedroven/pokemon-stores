@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { AiOutlinePlus } from "react-icons/ai";
 
 interface IImageProps {
   pokemonId: string;
@@ -100,9 +99,4 @@ export const AddButton = styled.button`
     width: 92%;
     transition: all 0.4s;
   }
-`;
-
-export const AddButtonIcon = styled(AiOutlinePlus)`
-  color: #fff;
-  margin-left: 2px;
 `;

@@ -2,15 +2,9 @@ import React, { MouseEvent } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { addProduct } from "../../actions";
+import { toast } from "react-toastify";
 
-import {
-  List,
-  Card,
-  ImageFrame,
-  CardInfo,
-  AddButton,
-  AddButtonIcon
-} from "./styles";
+import { List, Card, ImageFrame, CardInfo, AddButton } from "./styles";
 
 interface Pokemon {
   id: string;
@@ -60,7 +54,7 @@ const PokemonList: React.FC<IProps> = ({ pokemonList, type }) => {
             <div>R$ {p.pokemon.price},00</div>
           </CardInfo>
           <AddButton
-            onClick={() =>
+            onClick={() => {
               dispatch(
                 addProduct({
                   ...p.pokemon,
@@ -69,12 +63,12 @@ const PokemonList: React.FC<IProps> = ({ pokemonList, type }) => {
                   amount: 1,
                   storeType: type
                 })
-              )
-            }
+              );
+              toast("Pokemon Adicionado!");
+            }}
             buttonType={type}
           >
             Adicionar
-            <AddButtonIcon />
           </AddButton>
         </Card>
       ))}

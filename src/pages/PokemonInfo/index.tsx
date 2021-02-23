@@ -3,6 +3,7 @@ import { useLocation, useParams } from "react-router";
 import Header from "../../components/Header";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../actions";
+import { toast } from "react-toastify";
 
 import { getPokemonInfo } from "../../services/api";
 
@@ -126,7 +127,7 @@ const PokemonInfo: React.FC = () => {
               </span>
               <AddButton
                 storecolortype={stores[type]}
-                onClick={() =>
+                onClick={() => {
                   dispatch(
                     addProduct({
                       id: id,
@@ -135,8 +136,9 @@ const PokemonInfo: React.FC = () => {
                       name: pokemonInfo.name,
                       storeType: stores[type]
                     })
-                  )
-                }
+                  );
+                  toast("Pokemon Adicionado!");
+                }}
               >
                 Adicionar
               </AddButton>

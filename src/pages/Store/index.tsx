@@ -4,8 +4,8 @@ import {
   getGrassPokemon,
   getWaterPokemon
 } from "../../services/api";
-import { useSelector, useDispatch } from "react-redux";
-import { changesearchedName } from "../../actions";
+import { useSelector } from "react-redux";
+import Loader from "react-loader-spinner";
 
 import { Container, Content } from "./styles";
 
@@ -71,8 +71,6 @@ const Store: React.FC<IProps> = ({ type }) => {
     "initial" | "loading" | "resolved"
   >("initial");
 
-  const dispatch = useDispatch();
-
   const searchedName = useSelector(
     (store: Store) => store.searchedNameState.searchedNameState
   );
@@ -97,27 +95,28 @@ const Store: React.FC<IProps> = ({ type }) => {
   }, [type]);
 
   useEffect(() => {
+    const searchByName = (name: string) => {
+      if (name) {
+        setPokemonList(
+          initialPokemonList.filter(p =>
+            p.pokemon.name.toLowerCase().includes(name.toLowerCase())
+          )
+        );
+      } else {
+        setPokemonList(initialPokemonList);
+      }
+    };
     fetchState === "resolved" && searchByName(searchedName);
-  }, [searchedName, fetchState]);
-
-  const searchByName = (name: string) => {
-    if (name) {
-      setPokemonList(
-        initialPokemonList.filter(p =>
-          p.pokemon.name.toLowerCase().includes(name.toLowerCase())
-        )
-      );
-    } else {
-      setPokemonList(initialPokemonList);
-    }
-  };
+  }, [searchedName, fetchState, initialPokemonList]);
 
   return (
     <Container>
       <Header type={type} />
       <Content>
         {fetchState === "loading" && (
-          <div style={{ color: "white" }}>Loading...</div>
+          <div className="loaderContainer">
+            <Loader type="ThreeDots" color="#fff" height="100" width="100" />
+          </div>
         )}
         {fetchState === "resolved" && pokemonList.length > 0 && (
           <PokemonList type={type} pokemonList={pokemonList} />

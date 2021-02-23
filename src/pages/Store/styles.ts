@@ -8,16 +8,6 @@ interface IProps {
   storeType: string;
 }
 
-interface Map {
-  [key: string]: any;
-}
-
-const buttonTheme: Map = {
-  fire: "var(--o-red)",
-  water: "var(--o-blue)",
-  grass: "var(--o-green)"
-};
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -30,6 +20,15 @@ export const Content = styled.main`
   display: flex;
   justify-self: center;
   align-self: center;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 40px;
   padding: 80px 20px;
+  .loaderContainer {
+    width: 90%;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
