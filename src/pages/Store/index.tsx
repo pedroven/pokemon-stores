@@ -80,7 +80,6 @@ const Store: React.FC<IProps> = ({ type }) => {
   useEffect(() => {
     setFetchState("loading");
     const getPokemonList = async () => {
-      console.log("test");
       let pokemon: PokemonObj[] = await selectPokemonMap[type]();
       let counter = 0;
       pokemon = pokemon.map(p => {
@@ -105,7 +104,7 @@ const Store: React.FC<IProps> = ({ type }) => {
     if (name) {
       setPokemonList(
         initialPokemonList.filter(p =>
-          p.pokemon.name.toLowerCase().includes(name)
+          p.pokemon.name.toLowerCase().includes(name.toLowerCase())
         )
       );
     } else {

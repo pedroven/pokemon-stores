@@ -33,6 +33,12 @@ export const List = styled.ul`
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
   margin-top: 20px;
+  @media (max-width: 599px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  @media (min-width: 600px) and (max-width: 800px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 export const Card = styled.li`
@@ -60,6 +66,7 @@ export const ImageFrame = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-color: ${(props: IImageProps) => backgroundImageTheme[props.type]};
+  border: 8px solid ${(props: IImageProps) => backgroundImageTheme[props.type]};
 `;
 
 const pokemonImageURL = (id: string) => {

@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
+import {
+  AiOutlineSearch,
+  AiOutlineShoppingCart,
+  AiOutlineMenu
+} from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 
 interface IImageProps {
@@ -58,7 +62,35 @@ export const Container = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media (max-width: 799px) {
+      max-width: 599px;
+      width: 100%;
+      justify-content: space-between;
+    }
+    @media (max-width: 1280px) {
+      padding: 0 25px;
+    }
+    padding: 0 30px;
   }
+`;
+
+export const MenuButton = styled.button`
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (min-width: 600px) {
+    display: none;
+  }
+`;
+
+export const MenuIcon = styled(AiOutlineMenu)`
+  color: #fff;
+  font-size: 18px;
 `;
 
 export const Logo = styled.div`
@@ -82,10 +114,33 @@ export const Logo = styled.div`
     letter-spacing: 2px;
     text-align: center;
   }
+  @media (max-width: 599px) {
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const SearchBar = styled.form`
   width: 70%;
+  display: flex;
+  @media (max-width: 599px) {
+    display: none;
+  }
+`;
+
+export const SearchBarMobileContainer = styled.div`
+  width: 100%;
+  height: 50px;
+  background-color: ${(props: IContainerProps) => headerTheme[props.type]};
+  margin-top: 80px;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SearchBarMobile = styled.form`
+  width: 92%;
   display: flex;
 `;
 
@@ -198,6 +253,11 @@ export const CartContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  @media (max-width: 599px) {
+    top: 90px;
+    right: 10px;
   }
 `;
 

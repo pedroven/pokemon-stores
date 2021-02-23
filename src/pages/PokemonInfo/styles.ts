@@ -40,6 +40,14 @@ export const Content = styled.main`
   align-items: center;
   margin-bottom: 40px;
   padding-top: 140px;
+  @media (max-width: 801px) {
+    flex-direction: column;
+    padding-top: 100px;
+  }
+  @media (min-width: 802px) and (max-width: 1281px) {
+    padding: 40px;
+    padding-top: 120px;
+  }
 `;
 
 const pokemonImageURL = (id: string) => {
@@ -59,6 +67,11 @@ export const PokemonImage = styled.div`
   border: 5px solid var(--l-gray);
   margin-right: 4px;
   border-radius: 4px;
+  @media (max-width: 800px) {
+    width: 90%;
+    height: 275px;
+    margin-bottom: 20px;
+  }
 `;
 
 export const PokemonInfoContainer = styled.div`
@@ -80,6 +93,15 @@ export const PokemonInfoContainer = styled.div`
   .pokemonInfoPrice {
     font-size: 20px;
     font-weight: bold;
+  }
+
+  @media (max-width: 800px) {
+    width: 90%;
+    height: fit-content;
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
@@ -106,6 +128,23 @@ export const PokemonInfoCard = styled.div`
   }
   padding-bottom: 20px;
   border-bottom: 1px solid gray;
+  @media (max-width: 800px) {
+    width: 100%;
+    height: fit-content;
+    ul {
+      width: 100%;
+      justify-content: space-between;
+      padding: 0;
+      li {
+        width: 50%;
+        display: flex;
+        justify-content: flex-start;
+        span {
+          font-weight: normal;
+        }
+      }
+    }
+  }
 `;
 
 export const AddButton = styled.button`

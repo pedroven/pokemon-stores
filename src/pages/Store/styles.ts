@@ -31,5 +31,5 @@ export const Content = styled.main`
   justify-self: center;
   align-self: center;
   margin-bottom: 40px;
-  padding-top: 80px;
+  padding: 80px 20px;
 `;

@@ -25,7 +25,11 @@ import {
   EmptyCart,
   FinishPurchaseButton,
   RemoveIcon,
-  CartContainer
+  CartContainer,
+  SearchBarMobile,
+  SearchBarMobileContainer,
+  MenuButton,
+  MenuIcon
 } from "./styles";
 
 import pokemonLogo from "../../assets/pokemon-logo.png";
@@ -83,6 +87,7 @@ const Header: React.FC<IProps> = ({ type }) => {
   const [lastTotalValue, setLastTotalValue] = useState<number>(0);
   const [totalValue, setTotalValue] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [mobileFormOpen, setMobileFormOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setTotalValue(getTotalValue(products, type));
@@ -124,6 +129,9 @@ const Header: React.FC<IProps> = ({ type }) => {
           </div>
         </Modal>
         <div className="wrapper">
+          <MenuButton onClick={() => setMobileFormOpen(!mobileFormOpen)}>
+            <MenuIcon />
+          </MenuButton>
           <Link to="/" style={{ textDecoration: "none" }}>
             <Logo logoUrl={pokemonLogo}>
               <div />
@@ -150,6 +158,22 @@ const Header: React.FC<IProps> = ({ type }) => {
           </CartButton>
         </div>
       </Container>
+      {mobileFormOpen && (
+        <SearchBarMobileContainer type={type}>
+          <SearchBarMobile onSubmit={handleSubmit(onSubmit)}>
+            <SearchInput
+              id="mobileVersion"
+              name="searchedName"
+              defaultValue=""
+              placeholder="Pesquisar..."
+              ref={register}
+            />
+            <SearchBarButton type="submit">
+              <SearchBarButtonIcon iconcolortype={type} />
+            </SearchBarButton>
+          </SearchBarMobile>
+        </SearchBarMobileContainer>
+      )}
       {cartIsOpen && (
         <React.Fragment>
           <CartAside onClick={toggle} />

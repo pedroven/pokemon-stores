@@ -25,10 +25,18 @@ export const Content = styled.main`
     font-size: 18px;
     margin-bottom: 10px;
   }
+  @media (max-width: 599px) {
+    width: 300px;
+    span {
+      font-size: 15px;
+      text-align: center;
+      padding: 20px;
+    }
+  }
 `;
 
 export const Logo = styled.div`
-  width: 300px;
+  width: 50%;
   height: 120px;
   display: flex;
   flex-direction: column;
@@ -49,6 +57,11 @@ export const Logo = styled.div`
     letter-spacing: 4px;
     text-align: center;
   }
+  @media (max-width: 599px) {
+    span {
+      font-size: 16px;
+    }
+  }
 `;
 
 export const StoreCard = styled.div`
@@ -67,19 +80,27 @@ export const StoreCard = styled.div`
   :hover {
     background-color: var(--l-gray);
   }
+  @media (max-width: 599px) {
+    width: 92%;
+    span {
+      font-size: 16px;
+    }
+  }
 `;
 
 export const StoreSymbol = styled.div`
   height: 100%;
   width: 25%;
-  background-color: gray;
   margin-right: 50px;
   border-radius: 4px;
-  border: 6px solid gray;
   background-image: ${(props: ILogoProps) => `url(${props.logoUrl})`};
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  @media (max-width: 599px) {
+    width: 30%;
+    margin-right: 20px;
+  }
 `;
 
 export const CustomLink = styled(Link)`
@@ -89,4 +110,7 @@ export const CustomLink = styled(Link)`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  @media (max-width: 599px) {
+    width: 300px;
+  }
 `;
