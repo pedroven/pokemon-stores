@@ -43,6 +43,7 @@ const PokemonList: React.FC<IProps> = ({ pokemonList, type }) => {
     <List>
       {pokemonList.map(p => (
         <Card
+          data-testid="pokemon-card"
           key={p.pokemon.name}
           onClick={(event: MouseEvent) =>
             goToInfoPage(event, p.pokemon.id, p.pokemon)

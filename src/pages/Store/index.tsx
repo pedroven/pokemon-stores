@@ -34,7 +34,6 @@ interface Map {
 
 interface Store {
   productsState: { products: Pokemon[] };
-  cartState: { cartState: boolean };
   searchedNameState: { searchedNameState: string };
 }
 
