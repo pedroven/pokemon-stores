@@ -4,7 +4,9 @@
 	"author": "Pedro Beethoven <pedrobeethoven8@gmail.com>",
 	"version": "1.0.0",
 	"license": "MIT",
-	"private": false,
+	"engines": {
+		"node": "14.x"
+	},
 	"dependencies": {
 		"@testing-library/react": "^11.2.5",
 		"@types/react-router-dom": "^5.1.7",
@@ -53,11 +55,7 @@
 		"extends": "react-app"
 	},
 	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
+		"production": [ ">0.2%", "not dead", "not op_mini all" ],
 		"development": [
 			"last 1 chrome version",
 			"last 1 firefox version",
