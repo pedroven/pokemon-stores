@@ -22,7 +22,7 @@ yarn install
 yarn start
 ```
 
-## Utilizando docker e docker compose
+## Utilizando docker e docker compose (opcional)
 
 ```sh
 docker-compose up
