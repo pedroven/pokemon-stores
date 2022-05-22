@@ -37,7 +37,7 @@ interface Move {
   move: { name: string };
 }
 
-interface PokemonInfo {
+interface PokemonInfoProps {
   abilities: Ability[];
   moves: Move[];
   name: string;
@@ -70,13 +70,13 @@ function parseName(name: string): string {
 
 const PokemonInfo: React.FC = () => {
   const { id, type }: IParams = useParams();
-  const [pokemonInfo, setPokemonInfo] = useState<PokemonInfo>();
+  const [pokemonInfo, setPokemonInfo] = useState<PokemonInfoProps>();
   const { state }: State = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getPokemonInfoData = async () => {
-      const result = (await getPokemonInfo(id)) as PokemonInfo;
+      const result = (await getPokemonInfo(id)) as PokemonInfoProps;
       setPokemonInfo({
         abilities: result.abilities.slice(0, 10),
         moves: result.moves.slice(0, 20),
@@ -105,7 +105,7 @@ const PokemonInfo: React.FC = () => {
               <PokemonInfoCard storecolortype={stores[type]}>
                 <span>Habilidades</span>
                 <ul>
-                  {pokemonInfo.abilities.map(ability => (
+                  {pokemonInfo.abilities.map((ability: any) => (
                     <li key={ability.ability.name}>
                       <span>{parseName(ability.ability.name)}</span>
                     </li>
@@ -115,7 +115,7 @@ const PokemonInfo: React.FC = () => {
               <PokemonInfoCard storecolortype={stores[type]}>
                 <span>Movimentos</span>
                 <ul>
-                  {pokemonInfo.moves.map(move => (
+                  {pokemonInfo.moves.map((move: any) => (
                     <li key={move.move.name}>
                       <span>{parseName(move.move.name)}</span>
                     </li>

@@ -5,7 +5,7 @@ import { StyledModal } from "./styles";
 interface IProps {
   isOpen: boolean;
   toggleModal: () => void;
-  children: React.ReactNode;
+  children: any;
 }
 
 const Modal: React.FC<IProps> = ({ isOpen, toggleModal, children }) => {

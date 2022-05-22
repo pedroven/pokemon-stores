@@ -5,7 +5,7 @@ import {
   getWaterPokemon
 } from "../../services/api";
 import { useSelector } from "react-redux";
-import Loader from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 
 import { Container, Content } from "./styles";
 
@@ -32,7 +32,7 @@ interface Map {
   [key: string]: () => Promise<PokemonObj[]>;
 }
 
-interface Store {
+interface StoreProps {
   productsState: { products: Pokemon[] };
   searchedNameState: { searchedNameState: string };
 }
@@ -61,7 +61,7 @@ function getPokemonIdFromURL(url: string): string {
   return id;
 }
 
-const Store: React.FC<IProps> = ({ type }) => {
+const Store = ({ type }: IProps) => {
   const [pokemonList, setPokemonList] = useState<PokemonObj[] | []>([]);
   const [initialPokemonList, setInitialPokemonList] = useState<
     PokemonObj[] | []
@@ -71,7 +71,7 @@ const Store: React.FC<IProps> = ({ type }) => {
   >("initial");
 
   const searchedName = useSelector(
-    (store: Store) => store.searchedNameState.searchedNameState
+    (store: StoreProps) => store.searchedNameState.searchedNameState
   );
 
   useEffect(() => {
@@ -97,7 +97,7 @@ const Store: React.FC<IProps> = ({ type }) => {
     const searchByName = (name: string) => {
       if (name) {
         setPokemonList(
-          initialPokemonList.filter(p =>
+          initialPokemonList.filter((p: any) =>
             p.pokemon.name.toLowerCase().includes(name.toLowerCase())
           )
         );
@@ -114,7 +114,7 @@ const Store: React.FC<IProps> = ({ type }) => {
       <Content>
         {fetchState === "loading" && (
           <div className="loaderContainer">
-            <Loader type="ThreeDots" color="#fff" height="100" width="100" />
+            <ThreeDots color="#fff" height={80} width={80} />
           </div>
         )}
         {fetchState === "resolved" && pokemonList.length > 0 && (

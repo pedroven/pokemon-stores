@@ -69,7 +69,7 @@ export const ImageFrame = styled.div`
 `;
 
 const pokemonImageURL = (id: string) => {
-  return `url(https://pokeres.bastionbot.org/images/pokemon/${id}.png)`;
+  return `url(https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png)`;
 };
 
 export const CardInfo = styled.div`

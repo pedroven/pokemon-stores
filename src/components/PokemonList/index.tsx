@@ -28,7 +28,7 @@ const stores: { [key: string]: any } = {
   grass: "grama"
 };
 
-const PokemonList: React.FC<IProps> = ({ pokemonList, type }) => {
+const PokemonList = ({ pokemonList, type }: IProps) => {
   const dispatch = useDispatch();
   const { push } = useHistory();
 

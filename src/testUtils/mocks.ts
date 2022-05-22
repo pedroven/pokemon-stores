@@ -5,7 +5,7 @@ import { render } from "@testing-library/react";
 
 export const mockServer = (endpoint: string, payload: any) => {
   const server = setupServer(
-    rest.get(`${process.env.REACT_APP_API_URL}${endpoint}`, (req, res, ctx) => {
+    rest.get(`https://pokeapi.co/api/v2/${endpoint}`, (req, res, ctx) => {
       return res(ctx.json(payload));
     })
   );
@@ -14,5 +14,5 @@ export const mockServer = (endpoint: string, payload: any) => {
 
 export const renderWithRouter = (ui: any, { route = "/" } = {}) => {
   window.history.pushState({}, "Test page", route);
-  return render(ui, { wrapper: Router });
+  return render(ui, { wrapper: Router } as any);
 };

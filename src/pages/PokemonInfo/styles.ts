@@ -51,7 +51,7 @@ export const Content = styled.main`
 `;
 
 const pokemonImageURL = (id: string) => {
-  return `url(https://pokeres.bastionbot.org/images/pokemon/${id}.png)`;
+  return `url(https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png)`;
 };
 
 export const PokemonImage = styled.div`

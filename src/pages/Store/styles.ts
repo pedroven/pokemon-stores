@@ -1,13 +1,5 @@
 import styled from "styled-components";
 
-interface IImageProps {
-  pokemonId: string;
-}
-
-interface IProps {
-  storeType: string;
-}
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
